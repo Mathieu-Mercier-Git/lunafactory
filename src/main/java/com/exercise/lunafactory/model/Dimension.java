@@ -4,14 +4,14 @@ public class Dimension {
 
     private double width;
     private double depth;
-    private double heigth;
+    private double height;
 
     public Dimension() {}
 
-    public Dimension(double width, double depth, double heigth) {
+    public Dimension(double width, double depth, double height) {
         this.width = width;
         this.depth = depth;
-        this.heigth = heigth;
+        this.height = height;
     }
 
     public double getWidth() {
@@ -30,12 +30,12 @@ public class Dimension {
         this.depth = depth;
     }
 
-    public double getHeigth() {
-        return heigth;
+    public double getHeight() {
+        return height;
     }
 
-    public void setHeigth(double heigth) {
-        this.heigth = heigth;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Dimension {
         return "Dimension{" +
                 "width=" + width +
                 ", depth=" + depth +
-                ", heigth=" + heigth +
+                ", height=" + height +
                 '}';
     }
 }

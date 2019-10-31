@@ -5,22 +5,22 @@ public class Product {
     private int id;
     private String ean;
     private String name;
+    private double weight;
     private String description;
     private double price;
     private boolean assembled;
-    private double weigth;
     private Dimension dimension;
 
     public Product() {}
 
-    public Product(int id, String ean, String name, String description, double price, boolean assembled, double weigth, Dimension dimension) {
+    public Product(int id, String ean, String name, double weight, String description, double price, boolean assembled, Dimension dimension) {
         this.id = id;
         this.ean = ean;
         this.name = name;
+        this.weight = weight;
         this.description = description;
         this.price = price;
         this.assembled = assembled;
-        this.weigth = weigth;
         this.dimension = dimension;
     }
 
@@ -72,12 +72,12 @@ public class Product {
         this.assembled = assembled;
     }
 
-    public double getWeigth() {
-        return weigth;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setWeigth(double weigth) {
-        this.weigth = weigth;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public Dimension getDimension() {
@@ -94,10 +94,10 @@ public class Product {
                 "id=" + id +
                 ", ean='" + ean + '\'' +
                 ", name='" + name + '\'' +
+                ", weight=" + weight +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", assembled=" + assembled +
-                ", weigth=" + weigth +
                 ", dimension=" + dimension +
                 '}';
     }
