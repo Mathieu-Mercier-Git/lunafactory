@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Getting Started: Serving Web Content</title>
+</head>
+<body>
+<h1>All Products</h1>
+<table class="table">
+    <thead class = "thead-light">
+    <tr>
+        <th class="text-left">Name</th>
+        <th class="text-left">Price</th>
+        <th class="text-left">Description</th>
+        <th class="text-left"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="productItem : ${productItems}">
+        <td th:text="${productItem.name}">Avatar</td>
+        <td th:text="${productItem.price}">7.8</td>
+        <td th:text="${productItem.description}">LOW</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

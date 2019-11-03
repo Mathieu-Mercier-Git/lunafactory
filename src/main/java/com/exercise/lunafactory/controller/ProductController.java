@@ -1,15 +1,9 @@
 package com.exercise.lunafactory.controller;
 
-import com.exercise.lunafactory.model.Dimension;
 import com.exercise.lunafactory.model.Product;
-import com.exercise.lunafactory.model.ProductList;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.javac.util.ArrayUtils;
 import org.springframework.http.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,33 +13,42 @@ import java.util.*;
 @RestController
 public class ProductController {
 
-    @RequestMapping(value="/ProductsTest")
-    public ModelAndView greeting() {
+    @RequestMapping(value="/Lunafactory")
+    public ModelAndView home() {
+        ModelAndView modelAndView = new ModelAndView("home");
 
-        //ModelAndView model = new ModelAndView("index.html");
-        ModelAndView modelAndView = new ModelAndView("index.html");
         return modelAndView;
+    }
 
-        //return "index.html";
+    @RequestMapping(value="/TopProducts")
+    public ModelAndView greeting() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("productItems", topPrices());
+        ModelAndView modelAndView = new ModelAndView("top_products", model);
+
+        return modelAndView;
     }
 
     //curl -X GET "http://factory.lunatech.fr/products" -H "accept: application/json" -H "X-API-LunaFactory: mathieu.mercier77360@gmail.com:12c71b271acfc1bf"
 
     //@RequestMapping(value="/Produits",produces = MediaType.APPLICATION_JSON_VALUE,method=RequestMethod.GET)
     @RequestMapping(value="/Products",method=RequestMethod.GET)
-    public String sortProducts() {
+    public ModelAndView sortProducts() {
         List<Product> productList = productList();
         List<Product> sortedProductList = new ArrayList<>();
-        String result = "";
 
 
         for (Product prod : productList) {
             if (prod.isAssembled()) {
                 sortedProductList.add(prod);
-                result += prod.getName()+" / ";
             }
         }
-        return topPrices();
+
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("productItems", sortedProductList);
+        ModelAndView modelAndView = new ModelAndView("list_products", model);
+
+        return modelAndView;
     }
 
     public String sortProductsWithNoDuplicates() {
@@ -71,7 +74,7 @@ public class ProductController {
         return result;
     }
 
-    public String topPrices(){
+    public List<Product> topPrices(){
         String result="";
         List<Product> productList = new LinkedList<>();
         productList.addAll(productList());
@@ -86,7 +89,7 @@ public class ProductController {
             }
 
         }
-        return result;
+        return topPricesList;
     }
 
     public Product getMaxPriceProd(List<Product> prodList){
