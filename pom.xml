@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>com.exercise.lunafactory.LunafactoryApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -49,17 +50,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>MAIN CLASS GOES HERE</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<configuration>
-					<mainClass>com.exercise.lunafactory.LunafactoryApplication</mainClass>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
