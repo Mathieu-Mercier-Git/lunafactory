@@ -18,7 +18,7 @@ public class ProductController {
 
     //current method called to show homepage of the web application
     @RequestMapping(value="/Lunafactory")
-    public ModelAndView home() {
+    public ModelAndView homeView() {
         ModelAndView modelAndView = new ModelAndView("home");
 
         return modelAndView;
@@ -26,24 +26,24 @@ public class ProductController {
 
     //Method called to show the web page of the most expensive products
     @RequestMapping(value="/TopProducts")
-    public ModelAndView greeting() {
+    public ModelAndView topPriceProductsListView() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("productItems", topPrices());
+        model.put("productItems", getTopPricesList());
         ModelAndView modelAndView = new ModelAndView("top_products", model);
 
         return modelAndView;
     }
 
-    //Method called to show the web page of the assembled expensive products
+    //Method called to show the web page of the assembled products
     @RequestMapping(value="/Products",method=RequestMethod.GET)
-    public ModelAndView sortedProducts() {
+    public ModelAndView sortedAssembledProductsView() {
         List<Product> sortedProductList = new ArrayList<>();
 
         //We check the boolean value to know if we want to remove the duplicates
         if(removeDuplicates){
-            sortedProductList=sortProductsWithNoDuplicates();
+            sortedProductList=getAssembledProductNoDuplicatesList();
         } else {
-            sortedProductList=sortAssembledProducts();
+            sortedProductList=getAssembledProductList();
         }
 
         Map<String, Object> model = new HashMap<String, Object>();
@@ -54,7 +54,7 @@ public class ProductController {
     }
 
     //Method used to remove all products with Assembled value equal to false
-    public List<Product> sortAssembledProducts() {
+    public List<Product> getAssembledProductList() {
         List<Product> productList = productList();
         List<Product> sortedProductList = new ArrayList<>();
         for (Product prod : productList) {
@@ -66,7 +66,7 @@ public class ProductController {
     }
 
     //Method used to remove duplicates, checking if Product[i-1] has the same name
-    public List<Product> sortProductsWithNoDuplicates() {
+    public List<Product> getAssembledProductNoDuplicatesList() {
 
         List<Product> productList = productList();
         List<Product> sortedProductList = new ArrayList<>();
@@ -85,7 +85,8 @@ public class ProductController {
     }
 
 
-    public List<Product> topPrices(){
+    //Return a list of the 15th most expensive products in a list of Products
+    public List<Product> getTopPricesList(){
         List<Product> productList = new LinkedList<>();
         productList.addAll(productList());
         List<Product> topPricesList = new ArrayList<>();
@@ -101,6 +102,7 @@ public class ProductController {
         return topPricesList;
     }
 
+    //Return the most expensive product in a list of products
     public Product getMaxPriceProd(List<Product> prodList){
         Product maxPriceProd= prodList.iterator().next();
         double maxPrice = maxPriceProd.getPrice();
@@ -113,12 +115,12 @@ public class ProductController {
         return maxPriceProd;
     }
 
-    //Make a get call on the RESTAPI
+    //Make a get call on the web API
     //We get a json with the list of products and we store it in a java List of Product objects
     public List<Product> productList(){
         RestTemplate restTemplate = new RestTemplate();
 
-        //Store the token to send it with the GET request
+        //Store the token in header to send it with the GET request
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-API-LunaFactory", "mathieu.mercier77360@gmail.com:12c71b271acfc1bf");
         HttpEntity<String> entity = new HttpEntity<>("body", headers);

@@ -1,6 +1,6 @@
 # lunafactory
 
-• To launch the project in the Terminal, go in the main the directory .../lunafactory/ and execute this command : ./mvnw package
+• To launch the project in the Terminal, go in the main directory .../lunafactory/ and execute this command : ./mvnw package
 
 • Then go in the current directory that contain the jar file. 
 In our case, go to .../lunafactory/target/ and type this command java -jar lunafactory-0.0.1-SNAPSHOT.jar
